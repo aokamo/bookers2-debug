@@ -4,9 +4,10 @@ before_action :authenticate_user!
 
   def show
     @book = Book.new
-
     @user_book = Book.find(params[:id])
     @user = @user_book.user
+    @book_comment = BookComment.new
+    @book_comments = BookComment.all
   end
 
   def index
@@ -50,7 +51,7 @@ before_action :authenticate_user!
   def destroy
     @book = Book.find(params[:id])
     @book.destroy
-    redirect_to books_path
+    redirect_to book_path(@user_book)
   end
 
   private
