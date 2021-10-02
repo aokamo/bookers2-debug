@@ -12,7 +12,7 @@ before_action :authenticate_user!
 
   def index
     @book = Book.new
-    @books = Book.all
+      @books = Book.page(params[:page]).reverse_order
   end
 
   def create
