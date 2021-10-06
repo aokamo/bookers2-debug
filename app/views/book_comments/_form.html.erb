@@ -1,0 +1,12 @@
+<%= form_with(model: [user_book,book_comment]) do |f| %>
+  <% if book_comment.errors.any? %>
+    <%= book_comment.errors.count %>errors prohibited this comment from being saved
+      <ul>
+        <% book_comment.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+  <% end %>
+  <%= f.text_area :comment, id:"comments_area" %>
+  <%= f.submit '送信' %>
+<% end %>

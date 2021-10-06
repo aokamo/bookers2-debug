@@ -27,33 +27,14 @@
             <td><%= link_to 'Destroy', book_path(@user_book), method: :delete, data: { confirm: '本当に消しますか？' }, class: "btn btn-sm btn-danger destroy_book_#{@book.id}"%></td>
           <% end %>
         </tr>
-          <% @user_book.book_comments.each do |book_comment| %>
-            <tr>
-              <td>
-                <%= link_to user_path(book_comment.user.id) do %>
-                  <%= attachment_image_tag(book_comment.user, :profile_image, :fill, 100, 100, fallback: "no-image-icon.jpg") %><br>
-                  <%= book_comment.user.name %>
-                  <td><%= book_comment.comment %></td>
-                <% end %>
-              </td>
-              <% if @user_book.user == current_user %>
-                <td><%= link_to 'Destroy', book_path(@user_book), method: :delete, data: { confirm: '本当に消しますか？' }, class: "btn btn-sm btn-danger "%></td>
-              <% end %>
-            </tr>
-          <% end %>
-      </table>
-      <%= form_with(model: [@user_book,@book_comment], local: true) do |f| %>
-        <% if @book_comment.errors.any? %>
-          <%= @book_comment.errors.count %>errors prohibited this comment from being saved
-            <ul>
-              <% @book_comment.errors.full_messages.each do |message| %>
-                <li><%= message %></li>
-              <% end %>
-            </ul>
-        <% end %>
-        <%= f.text_area :comment %>
-        <%= f.submit '送信' %>
-      <% end %>
+              </table>
+          <div id = "comments_index">
+            <%= render "book_comments/book_comments", user_book: @user_book %>
+          </div>
+
+        <div>
+          <%= render "book_comments/form", book_comment: @book_comment, user_book: @user_book %>
+        </div>
     </div>
   </div>
 </div>
